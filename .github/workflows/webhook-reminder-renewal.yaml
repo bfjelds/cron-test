@@ -15,6 +15,10 @@ jobs:
         export CERT_EXPIRATION_STRING="Mar 24 20:21:16 2027 GMT"
         export CERT_EXPIRATION_DATE=$(date --date="$CERT_EXPIRATION_STRING")
         export FORTYFIVE_DAYS_IN_FUTURE=$(date -d "+4500 days")
+        
+        echo "Cert exp date: $CERT_EXPIRATION_DATE"
+        echo "Test date: $FORTYFIVE_DAYS_IN_FUTURE"
+        
         if [ $FORTYFIVE_DAYS_IN_FUTURE -ge $CERT_EXPIRATION_DATE ];
         then
           echo "per test/run-webhook.md, webhook cert referenced in test/run-webhook.py must be updated before $CERT_EXPIRATION_STRING"
