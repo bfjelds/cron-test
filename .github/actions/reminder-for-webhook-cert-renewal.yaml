@@ -1,0 +1,15 @@
+name: Webhook cert renewal reminder
+
+on:  
+  schedule:
+    - cron: '0 0 0 1,24 MAR ? 2027'  # Cert Expires: Mar 24 20:21:16 2027 GMT
+
+jobs:
+  remind-cert-renewal:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: RenewalReminder
+      run: |
+        echo "per test/run-webhook.md, webhook cert referenced in test/run-webhook.py must be updated before Mar 24 20:21:16 2027 GMT"
+        exit 1
