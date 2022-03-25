@@ -1,6 +1,7 @@
 name: Webhook cert renewal reminder
 
-on:  
+on:
+  workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'  # every month
 
