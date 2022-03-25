@@ -13,8 +13,8 @@ jobs:
     - name: RenewalReminder
       run: |
         export CERT_EXPIRATION_STRING="Mar 24 20:21:16 2027 GMT"
-        export CERT_EXPIRATION_DATE=$(date --date="$CERT_EXPIRATION_STRING")
-        export FORTYFIVE_DAYS_IN_FUTURE=$(date -d "+4500 days")
+        export CERT_EXPIRATION_DATE=$(date --date="$CERT_EXPIRATION_STRING" +%s)
+        export FORTYFIVE_DAYS_IN_FUTURE=$(date -d "+4500 days" +%s)
         
         echo "Cert exp date: $CERT_EXPIRATION_DATE"
         echo "Test date: $FORTYFIVE_DAYS_IN_FUTURE"
