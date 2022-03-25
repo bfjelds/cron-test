@@ -2,8 +2,7 @@ name: Webhook cert renewal reminder
 
 on:  
   schedule:
-    - cron: '0 0 0 1,24 MAR ? 2027'  # Cert Expires: Mar 24 20:21:16 2027 GMT
-    - cron: '0 0/5 0 ? * * *'  # every 5 mionutes
+    - cron: '0 0 * * *'  # every month
 
 jobs:
   remind-cert-renewal:
@@ -12,5 +11,11 @@ jobs:
     steps:
     - name: RenewalReminder
       run: |
-        echo "per test/run-webhook.md, webhook cert referenced in test/run-webhook.py must be updated before Mar 24 20:21:16 2027 GMT"
-        exit 1
+        export CERT_EXPIRATION_STRING="Mar 24 20:21:16 2027 GMT"
+        export CERT_EXPIRATION_DATE=$(date --date="$CERT_EXPIRATION_STRING")
+        export FORTYFIVE_DAYS_IN_FUTURE=$(date -d "+4500 days")
+        if [ $FORTYFIVE_DAYS_IN_FUTURE -ge $CERT_EXPIRATION_DATE ];
+        then
+          echo "per test/run-webhook.md, webhook cert referenced in test/run-webhook.py must be updated before $CERT_EXPIRATION_STRING"
+          exit 1
+        fi
